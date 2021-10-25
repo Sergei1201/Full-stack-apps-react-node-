@@ -1,12 +1,12 @@
 // Creating a basic express server
 const express = require('express')
-const connectDB = require('./config/db')
+const connectDB = require('../contact-keeper/config/db')
 const app = express()
-// Connecting to the database
+// Adding Middleware
 connectDB()
-
-// Initializing Middleware
 app.use(express.json({extended: false}))
+
+
 // Adding a route
 app.get('/', (req, res) => res.json({msg: 'Welcome to Contact Keeper API'}))
 // Defining routes
