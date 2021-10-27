@@ -4,13 +4,25 @@ const bcrypt = require('bcryptjs')
 const jwt = require('jsonwebtoken')
 const config = require('config')
 const {check, validationResult} = require('express-validator')
+const auth = require('../middleware/auth')
 const { ResultWithContext } = require('express-validator/src/chain')
 const User = require('../models/User')
 const { findOne } = require('../models/User')
 //@route GET api/auth
 // @ddesc Get logged in user
 // @access Private
-router.get('/', (req, res) =>res.send('Get logged in user'))
+router.get('/', auth, async(req, res) => {
+try {
+    const user = await User.findById(req.user.id).select('-password')
+    res.json(user)
+} catch (err) {
+    console.error(err.message)
+    res.status(500).send('Server error')
+    
+}    
+})
+
+  
 
 //@route POST api/auth
 // @ddesc Auth user and get token
@@ -29,7 +41,7 @@ router.post('/', [check('email', 'Please enter a valid email...').isEmail(),
 
  // Finding a user and comparing him/her to the one in the database
  let user = await User.findOne({email})
- // If there are no match, throwing an error
+ // If there is no match, throwing an error
  if(!user) {
      return res.status(400).json({msg: 'Invalid credentials'})
  }
