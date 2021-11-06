@@ -36,7 +36,10 @@ const ContactState = props => {
                 type: 'professional'
             },
 
-        ]
+
+        ],
+
+            current: null
     }
 
     // Pulling out the state and dispatching the reducer
@@ -61,8 +64,14 @@ const ContactState = props => {
 
     // Set current contact
 
-    // Clear current contact 
+    const setCurrent = contact => {
+        dispatch({type: SET_CURRENT, payload: contact})
+    }
 
+    // Clear current contact 
+    const clearCurrent = () => {
+        dispatch({type: CLEAR_CURRENT})
+    } 
     // Update the contact
 
     // Filter contact
@@ -73,8 +82,12 @@ const ContactState = props => {
         <ContactContext.Provider
         value = {{
             contacts: state.contacts,
+            current: state.current,
             addContact,
-            deleteContact
+            deleteContact,
+            setCurrent,
+            clearCurrent,
+
 
         }}>
             {props.children}

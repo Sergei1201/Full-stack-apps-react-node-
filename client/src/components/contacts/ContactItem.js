@@ -9,7 +9,7 @@ const ContactItem = ({contact}) => {
 
     // Pulling out from the context
 
-    const {deleteContact} = contactContext
+    const {deleteContact, setCurrent} = contactContext
 
     const {id, name, email, phone, type} = contact
 
@@ -33,7 +33,7 @@ const ContactItem = ({contact}) => {
 
             </ul>
             <p>
-                <button className="btn btn-dark btn-sm">Edit</button>
+                <button className="btn btn-dark btn-sm" onClick ={() => setCurrent(contact)}>Edit</button>
                 <button className="btn btn-sm btn-danger" onClick = {onDelete}>Delete</button> 
                 
             </p>
