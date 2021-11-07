@@ -9,13 +9,14 @@ const ContactItem = ({contact}) => {
 
     // Pulling out from the context
 
-    const {deleteContact, setCurrent} = contactContext
+    const {deleteContact, setCurrent, clearCurrent} = contactContext
 
     const {id, name, email, phone, type} = contact
 
     const onDelete = () => {
 
         deleteContact(id)
+        clearCurrent()
 
     }
     return (
